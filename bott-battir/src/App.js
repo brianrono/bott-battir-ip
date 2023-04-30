@@ -9,6 +9,17 @@ function App() {
   const [bots, setBots] = useState([]);
   const [armyBots, setArmyBots] = useState([]);
 
+  function BotCard({ bot, handleArmyBots }) {
+    return (
+      <div className="botCard">
+        <img src={bot.avatar_url} alt={`${bot.name} avatar`} />
+        <h3>{bot.name}</h3>
+        <p>{bot.catchphrase}</p>
+        <button onClick={() => handleArmyBots(bot)}>Enlist</button>
+      </div>
+    );
+  }
+
   function handleArmyBots(bot) {
     setArmyBots([...armyBots, bot]);
   }
@@ -37,6 +48,11 @@ function App() {
         {bots.map((element) => {
           return <Botcollection key={element.id} bot={element} handleArmyBots={handleArmyBots}/>
         })}
+      </section>
+      <section className='botCollections'>
+        {bots.map((bot) => (
+          <BotCard key={bot.id} bot={bot} handleArmyBots={handleArmyBots} />
+        ))}
       </section>
     </div>
   );

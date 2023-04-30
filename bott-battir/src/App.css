@@ -14,10 +14,13 @@
   width: 100%;
   overflow: auto;
   display: flex;
+  background-color: aqua;
+  border-right-color: red;
 }
 .singleArmyBot{
   width: 30%;
   height: 100%;
+  background-color: cornflowerblue;
 }
 
 .botCollection{
@@ -29,6 +32,17 @@
   overflow: auto;
   padding: 5px;
 }
+
+.botCollections{
+  height: 50%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 5px;
+  overflow: auto;
+  padding: 5px;
+}
+
 .singleBot{
   background-color: rgb(170, 211, 5);
   border-radius: 5px;
