@@ -1,21 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from "react";
+import Botcollection from "./Components/BotCollection";
+import YourBotArmy from "./Components/YourBotArmy";
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+
+function App() {
+  const url = 'http://localhost:3000/bots'
+  const [bots, setBots] = useState([]);
+  const [armyBots, setArmyBots] = useState([]);
+
+  function handleArmyBots(bot) {
+    setArmyBots([...armyBots, bot]);
   }
+
+  function deleteArmyBot(bot) {
+    const filteredBots = armyBots.filter((element) => {
+      return element.id !== bot.id;
+    })
+
+    setArmyBots(filteredBots);
+  }
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then((res) => {
+        setBots(res)
+      })
+    .catch(err => console.log(err.message))
+  }, [])
+
+  return (
+    <div>
+      <YourBotArmy armybots={armyBots} deleteArmyBot={deleteArmyBot} />
+      <section className='botCollection'>
+        {bots.map((element) => {
+          return <Botcollection key={element.id} bot={element} handleArmyBots={handleArmyBots}/>
+        })}
+      </section>
+    </div>
+  );
 }
 
 export default App;
